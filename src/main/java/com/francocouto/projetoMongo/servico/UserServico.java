@@ -21,20 +21,38 @@ public class UserServico {
 		return userRepositorio.findAll();
 
 	}
-	
+
 	public User findById(String id) {
 		Optional<User> user = userRepositorio.findById(id);
-		return user.orElseThrow(()->  new ObjectNotFoundException("Usuario nao encontrado"));
-		
+		return user.orElseThrow(() -> new ObjectNotFoundException("Usuario nao encontrado"));
+
 	}
-	
-	public User insert (User obj) {
+
+	public User insert(User obj) {
 		return userRepositorio.insert(obj);
-		
+
 	}
-	
+
+	public void delete(String id) {
+		findById(id);
+		userRepositorio.deleteById(id);
+
+	}
+
+	public User update(String id, User obj) {
+		User entity = findById(id);
+		updateData(entity, obj);
+		return userRepositorio.save(entity);
+	}
+
+	public void updateData(User entity, User obj) {
+		entity.setNome(obj.getNome());
+		entity.setEmail(obj.getEmail());
+
+	}
+
 	public User fromDTO(UserDTO obj) {
-		  return new User(obj.getId(), obj.getNome(), obj.getEmail());
+		return new User(obj.getId(), obj.getNome(), obj.getEmail());
 	}
 
 }

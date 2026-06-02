@@ -21,5 +21,13 @@ public class ResourseExceptionHandler  {
 		return ResponseEntity.status(status).body(err);
 		
 	}
+	
+	@ExceptionHandler(DataError.class)
+	public ResponseEntity<StandardError> dataError(DataError e , HttpServletRequest request){
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		StandardError err = new StandardError(Instant.now(), status.value(), e.getMessage(), request.getRequestURI(), "BDError");
+		return ResponseEntity.status(status).body(err);
+		
+	}
 
 }
