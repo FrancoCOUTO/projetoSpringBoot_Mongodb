@@ -63,6 +63,7 @@ public class UserRecurso {
 	public ResponseEntity<UserDTO> update(@PathVariable String id, @RequestBody UserDTO objdto){
 		User obj = servico.fromDTO(objdto);
 		obj = servico.update(id, obj);
+		obj.setId(id);
 		return ResponseEntity.ok().body(new UserDTO(obj));
 		
 	}
