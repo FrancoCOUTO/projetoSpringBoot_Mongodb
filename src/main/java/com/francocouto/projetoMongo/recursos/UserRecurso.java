@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.francocouto.projetoMongo.domain.Post;
 import com.francocouto.projetoMongo.domain.User;
 import com.francocouto.projetoMongo.dto.UserDTO;
 import com.francocouto.projetoMongo.servico.UserServico;
@@ -58,15 +59,22 @@ public class UserRecurso {
 		return ResponseEntity.noContent().build();
 
 	}
-	
+
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<UserDTO> update(@PathVariable String id, @RequestBody UserDTO objdto){
+	public ResponseEntity<UserDTO> update(@PathVariable String id, @RequestBody UserDTO objdto) {
 		User obj = servico.fromDTO(objdto);
 		obj = servico.update(id, obj);
 		obj.setId(id);
 		return ResponseEntity.ok().body(new UserDTO(obj));
-		
+
 	}
-	
+
+	@GetMapping(value = "/{id}/posts")
+	public ResponseEntity<List<Post>> findAllPosts(@PathVariable String id) {
+		User obj = servico.findById(id);
+		return ResponseEntity.ok().body(obj.getPosts());
+		
+
+	}
 
 }

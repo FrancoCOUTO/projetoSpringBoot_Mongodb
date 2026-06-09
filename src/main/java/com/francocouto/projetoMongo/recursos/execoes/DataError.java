@@ -4,7 +4,7 @@ public class DataError extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 	
 	public DataError(String msg) {
-		super("DtaError");
+		super(msg);
 	}
 
 }

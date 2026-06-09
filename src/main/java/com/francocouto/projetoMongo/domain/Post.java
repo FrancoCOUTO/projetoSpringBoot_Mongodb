@@ -2,12 +2,15 @@ package com.francocouto.projetoMongo.domain;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.francocouto.projetoMongo.dto.AutorDTO;
+import com.francocouto.projetoMongo.dto.ComentarioDto;
 
 @Document
 public class Post implements Serializable {
@@ -18,7 +21,9 @@ public class Post implements Serializable {
 	private Instant date;
 	private String titulo;
 	private String corpo;
+	
 	private AutorDTO autor;
+	private List<ComentarioDto> comentario = new ArrayList<>(); 
 	
 	public Post() {
 		
@@ -30,6 +35,7 @@ public class Post implements Serializable {
 		this.titulo = titulo;
 		this.corpo = corpo;
 		this.autor = autor;
+		
 	}
 
 	public String getId() {
@@ -70,6 +76,10 @@ public class Post implements Serializable {
 
 	public void setAutor(AutorDTO autor) {
 		this.autor = autor;
+	}
+
+	public List<ComentarioDto> getComentario() {
+		return comentario;
 	}
 
 	@Override
